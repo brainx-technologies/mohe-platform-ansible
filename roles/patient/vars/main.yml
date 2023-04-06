@@ -1,0 +1,11 @@
+hostname: "patient.{{ domain }}"
+
+repository_name: "mohe-platform-patient.git"
+
+django_secret_key: "{{ patient_secret_key }}"
+
+django_project: "mohe_patient"
+
+database_user: "mohe_patient"
+
+database_password: "{{ patient_database_password }}"

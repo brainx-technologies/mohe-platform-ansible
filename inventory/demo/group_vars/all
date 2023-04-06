@@ -1,0 +1,2 @@
+# certbot or self-signed
+ssl_certificate: certbot

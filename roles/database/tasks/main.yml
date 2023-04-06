@@ -1,0 +1,76 @@
+- name: Install database packages
+  become: yes
+  apt:
+    package:
+      - mariadb-server
+      - python3-mysqldb
+      - libmariadb-dev
+      - automysqlbackup
+
+- name: Copy database configuration
+  become: yes
+  template:
+    src: 50-server.cnf.j2
+    dest: /etc/mysql/mariadb.conf.d/50-server.cnf
+
+- name: Make sure the database exists
+  become: yes
+  mysql_db:
+    name: "{{ database_name }}"
+    state: present
+
+- name: Import timezone definitions
+  become: yes
+  shell: "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql  mysql"
+
+- name: Create database user for admin
+  become: yes
+  mysql_user:
+    name: "mohe_admin"
+    password: "{{ admin_database_password }}"
+    host: "{{ admin_ip }}"
+    priv: '{{ database_name }}.*:ALL'
+    state: present
+
+- name: Create database user for datalab
+  become: yes
+  mysql_user:
+    name: "mohe_datalab"
+    password: "{{ datalab_database_password }}"
+    host: "{{ datalab_ip }}"
+    priv: '{{ database_name }}.*:ALL'
+    state: present
+
+- name: Create database user for facility
+  become: yes
+  mysql_user:
+    name: "mohe_facility"
+    password: "{{ facility_database_password }}"
+    host: "{{ facility_ip }}"
+    priv: '{{ database_name }}.*:ALL'
+    state: present
+
+- name: Create database user for patient
+  become: yes
+  mysql_user:
+    name: "mohe_patient"
+    password: "{{ patient_database_password }}"
+    host: "{{ patient_ip }}"
+    priv: '{{ database_name }}.*:ALL'
+    state: present
+
+- name: Create database user for api
+  become: yes
+  mysql_user:
+    name: "mohe_api"
+    password: "{{ api_database_password }}"
+    host: "{{ api_ip }}"
+    priv: '{{ database_name }}.*:ALL'
+    state: present
+
+
+- name: Make sure mariadb is restarted
+  become: yes
+  systemd:
+    state: restarted
+    name: mariadb

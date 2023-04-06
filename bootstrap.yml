@@ -1,0 +1,9 @@
+- name: Database Server
+  hosts:
+    - database
+    - admin
+    - datalab
+    - facility
+    - patient
+  roles:
+    - bootstrap

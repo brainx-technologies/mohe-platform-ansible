@@ -1,0 +1,35 @@
+- name: Install nginx
+  become: yes
+  apt:
+    package:
+      - nginx
+      - openssl
+      - certbot
+
+- name: Create nginx log directory
+  become: yes
+  file:
+    path: "/var/log/nginx/{{ hostname }}"
+    state: directory
+
+- name: Copy nginx config file
+  become: yes
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/sites-enabled/{{ hostname }}.conf"
+
+- name: Install certbot certificate
+  become: yes
+  command: "certbot certonly --webroot --agree-tos --noninteractive -d {{ hostname }} --webroot-path /var/www/html -m {{ certbot_mail_address }}"
+  when: ssl_certificate == "certbot"
+
+- name: Create self signed certificate
+  become: yes
+  command: "openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj \"{{ ssl_certificate_subj }}\" -keyout /etc/ssl/private/{{ hostname }}.key  -out /etc/ssl/certs/{{ hostname }}.crt"
+  when: ssl_certificate == "self-signed"
+
+- name: Make sure nginx is restarted
+  become: yes
+  systemd:
+    state: restarted
+    name: nginx

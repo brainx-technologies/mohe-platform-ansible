@@ -1,0 +1,17 @@
+[database]
+database.demo.mohe.ch
+
+[datalab]
+datalab.demo.mohe.ch
+
+[admin]
+admin.demo.mohe.ch
+
+[facility]
+facility.demo.mohe.ch
+
+[patient]
+patient.demo.mohe.ch
+
+[api]
+patient.demo.mohe.ch

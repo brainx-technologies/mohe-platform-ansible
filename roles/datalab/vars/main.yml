@@ -1,0 +1,11 @@
+hostname: "datalab.{{ domain }}"
+
+repository_name: "mohe-platform-datalab.git"
+
+django_secret_key: "{{ datalab_secret_key }}"
+
+django_project: "mohe_datalab"
+
+database_user: "mohe_datalab"
+
+database_password: "{{ datalab_database_password }}"

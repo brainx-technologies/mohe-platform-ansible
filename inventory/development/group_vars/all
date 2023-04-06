@@ -1,0 +1,3 @@
+# certbot or self-signed
+ssl_certificate: self-signed
+ssl_certificate_subj: "/C=US/ST=Denial/L=Springfield/O=Dis/CN={{ hostname }}"

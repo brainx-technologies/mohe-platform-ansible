@@ -1,0 +1,19 @@
+- name: Install uwsgi
+  become: yes
+  apt:
+    update_cache: yes
+    package:
+      - uwsgi
+      - uwsgi-plugin-python3
+
+- name: Copy uwsgi ini file
+  become: yes
+  template:
+    src: uwsgi.ini.j2
+    dest: "/etc/uwsgi/apps-enabled/{{ hostname }}.ini"
+
+- name: Make sure uwsgi is restarted
+  become: yes
+  systemd:
+    state: restarted
+    name: uwsgi

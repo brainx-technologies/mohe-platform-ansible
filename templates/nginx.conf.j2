@@ -1,0 +1,47 @@
+server {
+    listen      80;
+    listen [::]:80;
+    server_name {{ hostname }};
+    rewrite ^ https://{{ hostname }}$request_uri? permanent;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name {{ hostname }};
+    {% if ssl_certificate == 'certbot' %}
+    ssl_certificate /etc/letsencrypt/live/{{ hostname }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ hostname }}/privkey.pem;
+    {% else %}
+    ssl_certificate /etc/ssl/certs/{{ hostname }}.crt;
+    ssl_certificate_key /etc/ssl/private/{{ hostname }}.key;
+    {% endif %}
+
+    client_max_body_size 25m;
+    charset utf-8;
+
+    access_log /var/log/nginx/{{ hostname }}/access.log;
+    error_log /var/log/nginx/{{ hostname }}/error.log;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:///var/run/uwsgi/app/{{ hostname }}/socket;
+    }
+
+    location /media/ {
+        root /var/www/{{ hostname }};
+    }
+
+    location /static/ {
+        root /var/www/{{ hostname }};
+    }
+
+    location /robots.txt {
+        root /var/www/{{ hostname }};
+    }
+
+    location /.well-known/ {
+        root /var/www/html;
+    }
+}

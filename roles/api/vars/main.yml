@@ -1,0 +1,11 @@
+hostname: "api.{{ domain }}"
+
+repository_name: "mohe-platform-api.git"
+
+django_secret_key: "{{ api_secret_key }}"
+
+django_project: "mohe_api"
+
+database_user: "mohe_api"
+
+database_password: "{{ api_database_password }}"

@@ -1,0 +1,8 @@
+- name: install django project
+  include_tasks: django.yml
+
+- name: install uwsgi
+  include_tasks: uwsgi.yml
+
+- name: install nginx
+  include_tasks: nginx.yml

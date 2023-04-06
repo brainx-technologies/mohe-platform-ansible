@@ -1,0 +1,88 @@
+#- name: Install required packages
+#  become: yes
+#  apt:
+#    update_cache: yes
+#    package:
+#      - build-essential
+#      - git
+#      - mariadb-client
+#      - libmariadb-dev
+#      - libjpeg-dev
+#      - zlib1g-dev
+
+- name: Create static root directory
+  become: yes
+  file:
+    path: "/var/www/{{ hostname }}/static"
+    state: directory
+    owner: mohe
+
+- name: Create static root directory
+  become: yes
+  file:
+    path: "/var/www/{{ hostname }}/static/CACHE"
+    state: directory
+    owner: www-data
+
+- name: Create media root directory
+  become: yes
+  file:
+    path: "/var/www/{{ hostname }}/media"
+    state: directory
+    owner: www-data
+
+- name: Create project root directory
+  become: yes
+  file:
+    path: /opt/mohe
+    state: directory
+    owner: mohe
+
+- name: Create project config directory
+  become: yes
+  file:
+    path: "/opt/mohe/etc"
+    state: directory
+
+- name: Check out core repo
+  git:
+    repo: "{{ repository_base }}/{{ core_repository_name }}"
+    dest: "/opt/mohe/mohe_core/"
+    version: "{{ repository_branch }}"
+    accept_hostkey: yes
+
+- name: Create venv
+  command: "python3 -m venv /opt/mohe/venv"
+
+- name: Link core module
+  command: "/opt/mohe/venv/bin/python setup.py develop"
+  args:
+    chdir: "/opt/mohe/mohe_core/"
+
+- name: Check out project repo
+  git:
+    repo: "{{ repository_base }}/{{ repository_name }}"
+    dest: "/opt/mohe/{{ hostname }}"
+    version: "{{ repository_branch }}"
+    accept_hostkey: yes
+
+- name: Install python requirements
+  pip:
+    requirements: "/opt/mohe/{{ hostname }}/requirements.txt"
+    virtualenv: "/opt/mohe/venv"
+
+- name: Copy settings
+  become: yes
+  template:
+    src: settings.ini.j2
+    dest: "/opt/mohe/etc/{{ django_project }}.ini"
+
+- name: Collect static files
+  command: "/opt/mohe/venv/bin/python manage.py collectstatic --noinput"
+  args:
+    chdir: "/opt/mohe/{{ hostname }}"
+
+- name: Execute database migrations
+  command: "/opt/mohe/venv/bin/python manage.py migrate"
+  args:
+    chdir: "/opt/mohe/{{ hostname }}"

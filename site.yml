@@ -1,0 +1,35 @@
+- name: Database Server
+  hosts: database
+  tags: database
+  roles:
+    - database
+
+- name: Admin Frontend Server
+  hosts: admin
+  tags: admin
+  roles:
+    - admin
+
+- name: Datalab Frontend Server
+  hosts: datalab
+  tags: datalab
+  roles:
+    - datalab
+
+- name: Facility Frontend Server
+  hosts: facility
+  tags: facility
+  roles:
+    - facility
+
+- name: Patient Frontend Server
+  hosts: patient
+  tags: patient
+  roles:
+    - patient
+
+- name: API Frontend Server
+  hosts: api
+  tags: api
+  roles:
+    - api

@@ -1,0 +1,37 @@
+[DJANGO]
+SECRET_KEY = {{ django_secret_key }}
+ALLOWED_HOSTS = {{ hostname }}
+STATIC_ROOT = /var/www/{{ hostname }}/static
+MEDIA_ROOT = /var/www/{{ hostname }}/media
+ADMINS = {{ django_admins }}
+DEBUG = yes
+TIMEZONE = {{ timezone }}
+LANGUAGE = {{ language }}
+
+[DATABASE]
+ENGINE = django.db.backends.mysql
+HOST = {{ database_ip }}
+NAME = {{ database_name }}
+USER = {{ database_user }}
+PASSWORD = {{ database_password }}
+
+[EMAIL]
+BACKEND = {{ email_backend }}
+HOST = {{ email_host }}
+PORT = {{ email_port }}
+HOST_USER = {{ email_host_user }}
+HOST_PASSWORD = {{ email_host_password }}
+DEFAULT_FROM_EMAIL = {{ default_from_email }}
+SERVER_EMAIL = {{ server_email }}
+
+[MONDIALAB]
+COUNTRY = {{ country }}
+DASHBOARD_COLOR = dark
+ADMIN = admin.{{ domain }}
+DATALAB = datalab.{{ domain }}
+FACILITY = facility.{{ domain }}
+PATIENT = patient.{{ domain }}
+API = api.{{ domain }}
+
+[GOOGLE]
+API_KEY = {{ google_api_key }}

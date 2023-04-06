@@ -1,0 +1,11 @@
+hostname: "admin.{{ domain }}"
+
+repository_name: "mohe-platform-admin.git"
+
+django_secret_key: "{{ admin_secret_key }}"
+
+django_project: "mohe_admin"
+
+database_user: "mohe_admin"
+
+database_password: "{{ admin_database_password }}"
