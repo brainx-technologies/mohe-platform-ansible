@@ -1,14 +1,14 @@
-#- name: Install required packages
-#  become: yes
-#  apt:
-#    update_cache: yes
-#    package:
-#      - build-essential
-#      - git
-#      - mariadb-client
-#      - libmariadb-dev
-#      - libjpeg-dev
-#      - zlib1g-dev
+- name: Install required packages
+  become: yes
+  apt:
+    update_cache: yes
+    package:
+      - build-essential
+      - git
+      - mariadb-client
+      - libmariadb-dev
+      - libjpeg-dev
+      - zlib1g-dev
 
 - name: Create static root directory
   become: yes

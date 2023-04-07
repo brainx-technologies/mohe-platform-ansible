@@ -65,8 +65,8 @@ Create a hosts file inventory/production/hosts (replace the hostnames)
 
 Makes sure the mohe user exists on all hosts and you can ssh into the host using the deployment ssh key generated before.
  
-    ansible-playbook -e "@secrets.enc" -i inventory/development --user mohe bootstrap.yml
+    ansible-playbook -i inventory/demo --ask-vault-pass-e "@secrets_demo.enc" --user root bootstrap.yml
 
 ## Deployment
 
-    ansible-playbook -i inventory/development --ask-vault-pass -e "@secrets.enc" site.yml
+    ansible-playbook -i inventory/demo --ask-vault-pass -e "@secrets_demo.enc" --user mohe site.yml
