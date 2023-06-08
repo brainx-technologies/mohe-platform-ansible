@@ -44,20 +44,12 @@
 - name: Create database user for facility
   become: yes
   mysql_user:
-    name: "mohe_facility"
-    password: "{{ facility_database_password }}"
-    host: "{{ facility_ip }}"
+    name: "mohe_app"
+    password: "{{ app_database_password }}"
+    host: "{{ app_ip }}"
     priv: '{{ database_name }}.*:ALL'
     state: present
 
-- name: Create database user for patient
-  become: yes
-  mysql_user:
-    name: "mohe_patient"
-    password: "{{ patient_database_password }}"
-    host: "{{ patient_ip }}"
-    priv: '{{ database_name }}.*:ALL'
-    state: present
 
 - name: Create database user for api
   become: yes

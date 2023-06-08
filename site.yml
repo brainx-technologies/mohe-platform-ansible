@@ -16,17 +16,11 @@
   roles:
     - datalab
 
-- name: Facility Frontend Server
-  hosts: facility
-  tags: facility
+- name: App Frontend Server
+  hosts: app
+  tags: app
   roles:
-    - facility
-
-- name: Patient Frontend Server
-  hosts: patient
-  tags: patient
-  roles:
-    - patient
+    - app
 
 - name: API Frontend Server
   hosts: api
