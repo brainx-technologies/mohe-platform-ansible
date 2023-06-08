@@ -1,0 +1,11 @@
+hostname: "mlab.{{ domain }}"
+
+repository_name: "mohe-platform-mlab.git"
+
+django_secret_key: "{{ mlab_secret_key }}"
+
+django_project: "mohe_datalab"
+
+database_user: "mohe_mlab"
+
+database_password: "{{ mlab_database_password }}"
