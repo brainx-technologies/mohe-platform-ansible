@@ -63,26 +63,19 @@
     search_string: "admin.{{ domain }}"
     line: "{{ admin_ip }} admin.{{ domain }}"
 
-- name: datalab host entry
+- name: mlab host entry
   become: yes
   lineinfile:
     path: /etc/hosts
-    search_string: "datalab.{{ domain }}"
-    line: "{{ datalab_ip }} datalab.{{ domain }}"
+    search_string: "mlab.{{ domain }}"
+    line: "{{ mlab_ip }} mlab.{{ domain }}"
 
-- name: facility host entry
+- name: app host entry
   become: yes
   lineinfile:
     path: /etc/hosts
-    search_string: "facility.{{ domain }}"
-    line: "{{ facility_ip }} facility.{{ domain }}"
-
-- name: patient host entry
-  become: yes
-  lineinfile:
-    path: /etc/hosts
-    search_string: "patient.{{ domain }}"
-    line: "{{ patient_ip }} patient.{{ domain }}"
+    search_string: "app.{{ domain }}"
+    line: "{{ app_ip }} app.{{ domain }}"
 
 - name: api host entry
   become: yes

@@ -32,30 +32,21 @@
     priv: '{{ database_name }}.*:ALL'
     state: present
 
-- name: Create database user for datalab
+- name: Create database user for mlab
   become: yes
   mysql_user:
     name: "mohe_datalab"
-    password: "{{ datalab_database_password }}"
-    host: "{{ datalab_ip }}"
+    password: "{{ mlab_database_password }}"
+    host: "{{ mlab_ip }}"
     priv: '{{ database_name }}.*:ALL'
     state: present
 
-- name: Create database user for facility
+- name: Create database user for app
   become: yes
   mysql_user:
-    name: "mohe_facility"
-    password: "{{ facility_database_password }}"
-    host: "{{ facility_ip }}"
-    priv: '{{ database_name }}.*:ALL'
-    state: present
-
-- name: Create database user for patient
-  become: yes
-  mysql_user:
-    name: "mohe_patient"
-    password: "{{ patient_database_password }}"
-    host: "{{ patient_ip }}"
+    name: "mohe_app"
+    password: "{{ app_database_password }}"
+    host: "{{ app_ip }}"
     priv: '{{ database_name }}.*:ALL'
     state: present
 
@@ -67,7 +58,6 @@
     host: "{{ api_ip }}"
     priv: '{{ database_name }}.*:ALL'
     state: present
-
 
 - name: Make sure mariadb is restarted
   become: yes

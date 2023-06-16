@@ -2,9 +2,8 @@
   hosts:
     - database
     - admin
-    - datalab
-    - facility
-    - patient
+    - mlab
+    - app
     - api
   roles:
     - bootstrap

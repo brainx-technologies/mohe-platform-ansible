@@ -1,0 +1,11 @@
+hostname: "app.{{ domain }}"
+
+repository_name: "mohe-platform-app.git"
+
+django_secret_key: "{{ app_secret_key }}"
+
+django_project: "mohe_app"
+
+database_user: "mohe_app"
+
+database_password: "{{ app_database_password }}"

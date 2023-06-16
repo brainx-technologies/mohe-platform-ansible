@@ -51,22 +51,34 @@ Create a hosts file inventory/production/hosts (replace the hostnames)
     [admin]
     admin.mohe.com
 
-    [datalab]
-    datalab.mohe.com
+    [mlab]
+    mlab.mohe.com
 
-    [facility]
-    facility.mohe.com
+    [app]
+    app.mohe.com
 
-    [patient]
-    patient.mohe.com
+    [api]
+    api.mohe.com
 
 
 ## Bootstrap
 
 Makes sure the mohe user exists on all hosts and you can ssh into the host using the deployment ssh key generated before.
- 
-    ansible-playbook -i inventory/demo --ask-vault-pass-e "@secrets_demo.enc" --user root bootstrap.yml
+
+#### DEMO
+
+    ansible-playbook -i inventory/demo -e "@secrets_demo.enc" --user root bootstrap.yml --ask-vault-pass
+
+#### TEST
+
+    ansible-playbook -i inventory/test -e "@secrets_test.enc" --user root bootstrap.yml --ask-vault-pass
 
 ## Deployment
 
-    ansible-playbook -i inventory/demo --ask-vault-pass -e "@secrets_demo.enc" --user mohe site.yml
+#### DEMO
+
+    ansible-playbook -i inventory/demo  -e "@secrets_demo.enc" --user mohe site.yml --ask-vault-pass
+
+#### TEST
+
+    ansible-playbook -i inventory/test  -e "@secrets_test.enc" --user mohe site.yml --ask-vault-pass

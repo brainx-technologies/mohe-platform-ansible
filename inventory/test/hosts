@@ -1,0 +1,14 @@
+[database]
+database.test.mohe.ch
+
+[mlab]
+mlab.test.mohe.ch
+
+[admin]
+admin.test.mohe.ch
+
+[app]
+app.test.mohe.ch
+
+[api]
+api.test.mohe.ch
