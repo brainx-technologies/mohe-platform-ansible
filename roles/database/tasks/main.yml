@@ -35,7 +35,7 @@
 - name: Create database user for mlab
   become: yes
   mysql_user:
-    name: "mohe_datalab"
+    name: "mohe_mlab"
     password: "{{ mlab_database_password }}"
     host: "{{ mlab_ip }}"
     priv: '{{ database_name }}.*:ALL'
