@@ -75,7 +75,7 @@
   become: yes
   template:
     src: settings.ini.j2
-    dest: "/opt/mohe/etc/{{ django_project }}.ini"
+    dest: "/opt/mohe/etc/settings.ini"
 
 - name: Collect static files
   command: "/opt/mohe/venv/bin/python manage.py collectstatic --noinput"
